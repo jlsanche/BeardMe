@@ -2,12 +2,8 @@ var mongoose = require("mongoose");
 var Beard = require("./models/beard");
 var Comment   = require("./models/comment");
 
-var data = [
-   
-]
+var data = []
 
-function seedDB(){
-  
-}
+function seedDB(){}
 
 module.exports = seedDB;
