@@ -22,7 +22,7 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
     
 //mongoose.connect('mongodb://localhost/beard_me4');
-mongoose.connnect("mongodb://sancjose:Gooby-heinkel9068@ds251518.mlab.com:51518/beardme");
+mongoose.connect("mongodb://sancjose:Gooby-heinkel9068@ds251518.mlab.com:51518/beardme");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
