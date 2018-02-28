@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">Beard Me </p>
+    <div class="list-group">
+      <li class="list-group-item active">Info </li>
+      
+    </div>
+    <div id="floating-panel">
+      <input id="address" type="textbox" value="Long Beach, CA">
+      <input id="submit" type="button" value="Geocode"> </div>
+    <div id="map"></div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= beard.image %>">
+      <div class="caption-full">
+       
+        <h4><a><%=beard.name%></a></h4>
+        <p><%= beard.description %></p>
+        <p>
+          <em>Submitted by: <%= beard.author.username %>, <%= moment(beard.createdAt).fromNow() %></em>
+        </p>
+        <% if(currentUser && beard.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+        <a class="btn btn-warning" href="/beards/<%= beard._id %>/edit">Edit</a>
+        <form action="/beards/<%= beard._id %>?_method=DELETE" method="POST" class="delete-form">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <div class="well">
+      <div class="text-right">
+        <a class="btn btn-success" href="/beards/<%= beard._id %>/comments/new">Add New Comment</a>
+      </div>
+      <hr>
+      <% beard.comments.forEach(function(comment){ %>
+      <div class="row">
+        <div class="col-md-12">
+          <strong><%= comment.author.username %></strong>
+          <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+          <div>
+           <%= comment.text %> 
+
+           <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+            <div class="pull-right">
+              <a href="/beards/<%=beard._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-warning">EDIT</a>
+              <form class="delete-form" action="/beards/<%=beard._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-xs btn-danger">DELETE</button>
+              </form>
+            </div>
+          <% } %>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+</div>
+
+<% include ../partials/footer %>
