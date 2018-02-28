@@ -22,7 +22,8 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
     
 //mongoose.connect('mongodb://localhost/beard_me4');
-mongoose.connect(process.env.DATABASEURL);
+var url = process.env.DATABASEURL || 'mongodb://localhost/beard_me4'
+mongoose.connect(url);
 
 
 app.use(bodyParser.urlencoded({extended: true}));
