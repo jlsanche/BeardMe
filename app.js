@@ -22,7 +22,8 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
     
 //mongoose.connect('mongodb://localhost/beard_me4');
-mongoose.connect("mongodb://sancjose:Gooby-heinkel9068@ds251518.mlab.com:51518/beardme");
+mongoose.connect(process.env.DATABASEURL);
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -59,6 +60,6 @@ app.use("/", indexRoutes);
 app.use("/beards", beardRoutes);
 app.use("/beards/:id/comments", commentRoutes);
 
-app.listen(5000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Beard Me Server Has Started!");
 });
