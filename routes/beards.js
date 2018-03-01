@@ -27,7 +27,7 @@ var upload = multer({
 });
 
 cloudinary.config({
-    cloud_name: "dbjg582h5",
+    cloud_name: 'dbjg582h5',
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_SECRET_KEY
 
