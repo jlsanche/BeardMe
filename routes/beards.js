@@ -138,6 +138,7 @@ router.get("/:id/edit", isLoggedIn, checkUserBeard, function (req, res) {
 
 // PUT - updates beardin the database
 router.put("/:id", function (req, res) {
+    var newData = {name: req.body.name, image:req.body.image, description: req.body.desc};
 
     Beard.findByIdAndUpdate(req.params.id, {
         $set: newData
