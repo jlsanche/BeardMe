@@ -27,7 +27,7 @@ var upload = multer({
 });
 
 cloudinary.config({
-    cloud_name: dbjg582h5,
+    cloud_name: "dbjg582h5",
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_SECRET_KEY
 
@@ -81,38 +81,29 @@ router.get("/", function (req, res) {
 
 //CREATE - add new beard to DB
 router.post("/", isLoggedIn, upload.single("image"), function (req, res) {
-    // get data from form and add to beard array
-    req.body.beard.image = result.secret.secure_url;
-    var name = req.body.name;
-    var image = req.body.image;
-    var desc = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username
-    }
+    cloudinary.uploader.upload(req.file.path, function (result) {
+        req.body.beard.image = result.secure_url;
 
+        req.body.beard.author = {
+            id: req.user._id,
+            username: req.user.username
 
-    var newBeard = {
-        name: name,
-        image: image,
-        description: desc,
-        cost: cost,
-        author: author,
-        location: location,
-        lat: lat,
-        lng: lng
-    };
-    // Create a new beard post and save to DB
-    Beard.create(newBeard, function (err, newlyCreated) {
-        if (err) {
-            console.log(err);
-        } else {
-            //redirect back to beard page
-            console.log(newlyCreated);
-            res.redirect("/beards");
         }
-    });
 
+        Beard.create(req.body.beard, function (err, beard) {
+            if (err) {
+                console.log(err);
+                req.flash("error", err.message);
+                return res.redirect("back");
+            }
+
+            //redirect back to beard page
+
+            res.redirect("/beards/" + beard.id);
+
+        });
+
+    });
 });
 
 //NEW - show form to create new beard
@@ -161,6 +152,8 @@ router.put("/:id", function (req, res) {
     });
 
 });
+
+
 
 // DELETE - removes beardsand its comments from the database
 router.delete("/:id", isLoggedIn, checkUserBeard, function (req, res) {

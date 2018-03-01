@@ -5,11 +5,11 @@
             <form action="/beards" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Give your post a name</label>
-                    <input class="form-control" type="text" name="beard[name]" id="name" placeholder="Mr. played out hipster beard">
+                    <input class="form-control" type="text" name="beard[name]" placeholder="Mr. played out hipster beard">
                 </div>
                 <div class="form-group">
-                    <label for="image">Image</label>
-                    <input class="form-control" type="text" name="image" id="image" placeholder="image" accept="image/*" required>
+                    <label for="image">Upload your beard pic</label>
+                    <input type="file" name="image" id="image" accept="image/*" required>
                     
                 </div>
                 

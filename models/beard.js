@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var beardSchema = new mongoose.Schema({
    name: String,
    image: String,
+   image_id: String,
    description: String,
    location: String,
    lat: Number,
