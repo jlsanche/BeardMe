@@ -3,6 +3,36 @@ var router = express.Router();
 var Beard = require("../models/beard");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
+var cloudinary = require("cloudinary");
+var multer = require("multer");
+var storage = multer.diskStorage({
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname)
+
+    }
+});
+
+var imageFilter = function (req, file, cb) {
+    //check valid image files
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|heic|heif)$/i)) {
+        return cb(new Error("Please upload image file only"), false);
+    }
+    cb(null, true);
+
+};
+
+var upload = multer({
+    storage: storage,
+    fileFilter: imageFilter
+});
+
+cloudinary.config({
+    cloud_name: dbjg582h5,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET_KEY
+
+});
+
 
 var {
     isLoggedIn,
@@ -50,8 +80,9 @@ router.get("/", function (req, res) {
 });
 
 //CREATE - add new beard to DB
-router.post("/", isLoggedIn, function (req, res) {
+router.post("/", isLoggedIn, upload.single("image"), function (req, res) {
     // get data from form and add to beard array
+    req.body.beard.image = result.secret.secure_url;
     var name = req.body.name;
     var image = req.body.image;
     var desc = req.body.description;
@@ -60,27 +91,27 @@ router.post("/", isLoggedIn, function (req, res) {
         username: req.user.username
     }
 
-    
-        var newBeard = {
-            name: name,
-            image: image,
-            description: desc,
-            cost: cost,
-            author: author,
-            location: location,
-            lat: lat,
-            lng: lng
-        };
-        // Create a new beard post and save to DB
-        Beard.create(newBeard, function (err, newlyCreated) {
-            if (err) {
-                console.log(err);
-            } else {
-                //redirect back to beard page
-                console.log(newlyCreated);
-                res.redirect("/beards");
-            }
-        });
+
+    var newBeard = {
+        name: name,
+        image: image,
+        description: desc,
+        cost: cost,
+        author: author,
+        location: location,
+        lat: lat,
+        lng: lng
+    };
+    // Create a new beard post and save to DB
+    Beard.create(newBeard, function (err, newlyCreated) {
+        if (err) {
+            console.log(err);
+        } else {
+            //redirect back to beard page
+            console.log(newlyCreated);
+            res.redirect("/beards");
+        }
+    });
 
 });
 
@@ -116,19 +147,19 @@ router.get("/:id/edit", isLoggedIn, checkUserBeard, function (req, res) {
 
 // PUT - updates beardin the database
 router.put("/:id", function (req, res) {
-    
-        Beard.findByIdAndUpdate(req.params.id, {
-            $set: newData
-        }, function (err, beard) {
-            if (err) {
-                req.flash("error", err.message);
-                res.redirect("back");
-            } else {
-                req.flash("success", "Successfully Updated!");
-                res.redirect("/beards/" + beard._id);
-            }
-        });
-    
+
+    Beard.findByIdAndUpdate(req.params.id, {
+        $set: newData
+    }, function (err, beard) {
+        if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+        } else {
+            req.flash("success", "Successfully Updated!");
+            res.redirect("/beards/" + beard._id);
+        }
+    });
+
 });
 
 // DELETE - removes beardsand its comments from the database

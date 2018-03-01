@@ -2,20 +2,20 @@
     <div class="row">
         <h1 style="text-align: center">Create a New Beard Post</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/beards" method="POST">
+            <form action="/beards" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Give your post a name</label>
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Mr. Gray">
+                    <input class="form-control" type="text" name="beard[name]" id="name" placeholder="Mr. played out hipster beard">
                 </div>
                 <div class="form-group">
-                    <label for="image">Image Url</label>
-                    <input class="form-control" type="text" name="image" id="image" placeholder="image url" required>
+                    <label for="image">Image</label>
+                    <input class="form-control" type="text" name="image" id="image" placeholder="image" accept="image/*" required>
                     
                 </div>
                 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input class="form-control" type="text" name="description" id="description" placeholder="fisherman style beard blah blah blah.">
+                    <input class="form-control" type="text" name="beard[description]" id="description" placeholder="fisherman style beard blah blah blah.">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit!</button>
