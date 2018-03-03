@@ -61,6 +61,6 @@ app.use("/", indexRoutes);
 app.use("/beards", beardRoutes);
 app.use("/beards/:id/comments", commentRoutes);
 
-app.listen(4096, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("Beard Me Server Has Started!");
 });
