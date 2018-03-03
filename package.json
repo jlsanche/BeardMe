@@ -4,7 +4,7 @@
   "engines": {
     "node": "6.11.1"
   },
-  "description": "YelpCamp v1",
+  "description": "Beard Me",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -24,6 +24,8 @@
     "locus": "^2.0.1",
     "method-override": "^2.3.5",
     "moment": "^2.17.1",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.0.3",
     "mongoose": "^4.11.9",
     "multer": "^1.3.0",
     "node-geocoder": "^3.22.0",
