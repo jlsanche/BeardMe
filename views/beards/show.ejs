@@ -42,7 +42,6 @@
            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
             <div class="pull-right">
               <a href="/beards/<%=beard._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-warning">EDIT</a>
-                <a href="<%=beard.image %>"download="btn btn-xs btn-info">Download Image</a>
               <form class="delete-form" action="/beards/<%=beard._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-xs btn-danger">DELETE</button>
               </form>
