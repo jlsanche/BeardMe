@@ -22,7 +22,7 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
     
 //mongoose.connect('mongodb://localhost/beard_me4');
-var url = process.env.DATABASEURL || 'mongodb://localhost/beard_me4'
+var url = process.env.DATABASEURL || 'mongodb://localhost/beardme-A'
 mongoose.connect(url);
 
 
@@ -33,11 +33,11 @@ app.use(methodOverride('_method'));
 app.use(cookieParser('secret'));
 //require moment
 app.locals.moment = require('moment');
-// seedDB(); //seed the database
+
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "JLS OSU2018",
+    secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -61,6 +61,6 @@ app.use("/", indexRoutes);
 app.use("/beards", beardRoutes);
 app.use("/beards/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(4096, process.env.IP, function(){
    console.log("Beard Me Server Has Started!");
 });
