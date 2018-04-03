@@ -20,12 +20,14 @@ require('dotenv').load();
 var commentRoutes    = require("./routes/comments"),
     beardRoutes = require("./routes/beards"),
     indexRoutes      = require("./routes/index")
+
+const port = process.env.PORT || 4096;
     
 //mongoose.connect('mongodb://localhost/beard_me4');
 var url = process.env.DATABASEURL || 'mongodb://localhost/beardme-A'
 mongoose.connect(url);
 
-
+app.set(port);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -61,6 +63,6 @@ app.use("/", indexRoutes);
 app.use("/beards", beardRoutes);
 app.use("/beards/:id/comments", commentRoutes);
 
-app.listen(4096, process.env.IP, function(){
+app.listen(port, function(){
    console.log("Beard Me Server Has Started!");
 });
