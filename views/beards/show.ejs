@@ -16,7 +16,7 @@
         <h4><a><%=beard.name%></a></h4>
         <p><%= beard.description %></p>
         <p>
-          <em>Submitted by: <a href="/users/<%= beard.author.username %>"><%=beard.author.username %></a>
+          <em>Submitted by: <a href="/users/<%= beard.author.id %>"><%=beard.author.username %></a>
          , <%= moment(beard.createdAt).fromNow() %></em>
         </p>
         <% if(currentUser && beard.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
