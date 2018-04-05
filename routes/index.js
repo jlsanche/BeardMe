@@ -74,7 +74,7 @@ router.get("/users/:id", function(req, res) {
     }
 
     Beard.find()
-      .where("author.id")
+      .where('author.id')
       .equals(foundUser._id)
       .exec(function(err, beards) {
         if (err) {
@@ -82,8 +82,8 @@ router.get("/users/:id", function(req, res) {
          return res.redirect("/");
         }
 
-        res.render("/users/show", { user: foundUser, beards: beards });
-      });
+        res.render("users/show", { user: foundUser, beards: beards });
+      })
   });
 });
 
