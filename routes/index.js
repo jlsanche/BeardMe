@@ -70,7 +70,7 @@ router.get("/users/:id", function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if (err) {
       req.flash("error", "Something went wrong");
-      res.redirect("/");
+       return res.redirect("/");
     }
 
     Beard.find()
@@ -79,7 +79,7 @@ router.get("/users/:id", function(req, res) {
       .exec(function(err, beards) {
         if (err) {
           req.flash("error", "Something went wrong");
-          res.redirect("/");
+         return res.redirect("/");
         }
 
         res.render("users/show", { user: foundUser, beards: beards });
