@@ -82,7 +82,7 @@ router.get("/users/:id", function(req, res) {
          return res.redirect("/");
         }
 
-        res.render("users/show", { user: foundUser, beards: beards });
+        res.render("/users/show", { user: foundUser, beards: beards });
       });
   });
 });
