@@ -16,7 +16,8 @@
         <h4><a><%=beard.name%></a></h4>
         <p><%= beard.description %></p>
         <p>
-          <em>Submitted by: <%= beard.author.username %>, <%= moment(beard.createdAt).fromNow() %></em>
+          <em>Submitted by: <a href="/users/<%= beard.author.username %>"></a>
+         , <%= moment(beard.createdAt).fromNow() %></em>
         </p>
         <% if(currentUser && beard.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
         <a class="btn btn-warning" href="/beards/<%= beard._id %>/edit">Edit</a>
@@ -35,7 +36,9 @@
       <% beard.comments.forEach(function(comment){ %>
       <div class="row">
         <div class="col-md-12">
-          <strong><%= comment.author.username %></strong>
+          <strong>
+            <%= comment.author.username %>
+          </strong>
           <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
           <div>
            <%= comment.text %> 
