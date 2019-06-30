@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var Beard = require("../models/beard");
+
 //root route
 router.get("/", function(req, res) {
   res.render("landing");
@@ -17,15 +18,14 @@ router.get("/register", function(req, res) {
 router.post("/register", function(req, res) {
   var newUser = new User({
     username: req.body.username,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
     email: req.body.email,
-    avatar: req.body.avatar
+  
   });
 
   if (req.body.adminCode === process.env.ADMIN_CODE) {
     newUser.isAdmin = true;
   }
+
   User.register(newUser, req.body.password, function(err, user) {
     if (err) {
       console.log(err);
