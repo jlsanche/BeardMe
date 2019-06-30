@@ -24,7 +24,7 @@ var commentRoutes = require("./routes/comments"),
 const port = process.env.PORT || 4096;
 
 //mongoose.connect('mongodb://localhost/beard_me4');
-var url = process.env.DATABASEURL || "mongodb://localhost/beardme-A";
+var url = process.env.MONGODB_URI|| "mongodb://localhost/beardme-A";
 mongoose.connect(url);
 
 app.set(port);
