@@ -14,7 +14,7 @@ var storage = multer.diskStorage({
 var imageFilter = function(req, file, cb) {
   //check valid image files
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|heic|heif)$/i)) {
-    return cb(new Error("Please upload image file only"), false);
+    return cb(new Error("Please upload image file type only"), false);
   }
   cb(null, true);
 };

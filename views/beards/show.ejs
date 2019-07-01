@@ -16,11 +16,12 @@
         <h4><a><%=beard.name%></a></h4>
         <p><%= beard.description %></p>
         <p>
-          <em>Submitted by: <a href="/users/<%= beard.author.id %>"><%=beard.author.username %></a>
+          <em>Submitted by: <%=beard.author.username %></a>
          , <%= moment(beard.createdAt).fromNow() %></em>
         </p>
         <% if(currentUser && beard.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
         <a class="btn btn-warning" href="/beards/<%= beard._id %>/edit">Edit</a>
+
         <a  target="_blank" href="<%= beard.image %>" class="btn btn-info" download>Download Pic</a>
         <form action="/beards/<%= beard._id %>?_method=DELETE" method="POST" class="delete-form">
           <button class="btn btn-danger">Delete</button>

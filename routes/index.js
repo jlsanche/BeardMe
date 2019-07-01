@@ -34,7 +34,7 @@ router.post("/register", function(req, res) {
     passport.authenticate("local")(req, res, function() {
       req.flash(
         "success",
-        "Successfully Signed Up! Nice to meet you " + req.body.username
+        "Successfully Signed Up. Nice to meet you! " + req.body.username
       );
       res.redirect("/beards");
     });
@@ -82,7 +82,7 @@ router.get("/users/:id", function(req, res) {
          return res.redirect("/");
         }
 
-        res.render("/beards/show", { user: foundUser, beards: beards });
+        res.render("beards/show", { user: foundUser, beard: beards });
       })
   });
 });
